@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,17 +29,16 @@ public class StartWindow : GenericWindow
 
     public void OnClickcontinue()
     {
-        Debug.Log("OnClickcontinue");
+        manager.Open(Windows.GameOver);
     }
     public void OnClicknewgame()
     {
-        Debug.Log("OnClicknewgame");
+        manager.Open(Windows.Keyboard);
     }
     public void OnClickoption()
     {
-        Debug.Log("OnClickoption");    
+        manager.Open(Windows.Difficulty);  
     }
-
 }
 
 
