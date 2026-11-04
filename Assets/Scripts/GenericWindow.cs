@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class GenericWindow : MonoBehaviour
 {
     protected WindowManager manager;
+
     public GameObject firstSeleted;
 
     private EventSystem eventSystem;
@@ -12,14 +13,17 @@ public class GenericWindow : MonoBehaviour
     {
         eventSystem = EventSystem.current;
     }
+
     public void Init(WindowManager manager)
     {
         this.manager = manager;
     }
+
     public void OnFocus()
     {
         eventSystem.SetSelectedGameObject(firstSeleted);
     }
+
     public virtual void Open()
     {
         gameObject.SetActive(true);

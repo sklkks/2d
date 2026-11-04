@@ -1,10 +1,13 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+
 public class WindowManager : MonoBehaviour
 {
     public List<GenericWindow> windows;
+
     public Windows defaultWindow;
-    public Windows CurrentWindow {get; private set;}
+    public Windows CurrentWindow { get; private set; }
+
     private void Start()
     {
         foreach (var window in windows)
@@ -23,4 +26,4 @@ public class WindowManager : MonoBehaviour
         CurrentWindow = id;
         windows[(int)CurrentWindow].Open();
     }
-} 
+}

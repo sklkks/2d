@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+
 public class DifficultyWindow : GenericWindow
 {
     public enum Difficulty
@@ -9,42 +10,38 @@ public class DifficultyWindow : GenericWindow
         Normal,
         Hard,
     }
-    
+
     public Toggle[] toggles;
 
     public Difficulty CurrentDifficulty
     {
         get
         {
-            for(int i = 0; i < toggles.Length; ++i)
+            for (int i = 0; i < toggles.Length; ++i)
             {
                 if (toggles[i].isOn)
                 {
-                    return(Difficulty)i;
+                    return (Difficulty)i;
                 }
             }
             return Difficulty.None;
         }
-        set
-        {
-            if (value == Difficulty.None)
-            {
-                foreach (Toggle toggle in toggles)
-                {
-                    toggle.isOn = false;
-                }
-                return;
-            }
-            toggles[(int)value].isOn = true;
-        }
+        set { toggles[(int)value].isOn = true; }
     }
 
     public override void Open()
     {
         CurrentDifficulty = (Difficulty)PlayerPrefs.GetInt("Difficulty", 1);
+
         base.Open();
     }
-    
+
+    public override void Close()
+    {
+        PlayerPrefs.SetInt("Difficulty", (int)CurrentDifficulty);
+        base.Close();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -58,7 +55,11 @@ public class DifficultyWindow : GenericWindow
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             int index = (int)CurrentDifficulty;
-            index = (int)Mathf.Repeat(index - 1, toggles.Length);
+            --index;
+            if (index < 0)
+            {
+                index = toggles.Length - 1;
+            }
             CurrentDifficulty = (Difficulty)index;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -69,19 +70,18 @@ public class DifficultyWindow : GenericWindow
         }
     }
 
-
     public void OnClickEasy(bool value)
     {
         Debug.Log($"OnClickEasy: {value}");
     }
+
     public void OnClickNormal(bool value)
     {
         Debug.Log($"OnClickNormal: {value}");
     }
+
     public void OnClickHard(bool value)
     {
         Debug.Log($"OnClickHard: {value}");
     }
-    
 }
-

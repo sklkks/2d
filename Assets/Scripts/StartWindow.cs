@@ -1,11 +1,10 @@
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StartWindow : GenericWindow
 {
-    public Button continueButton;
-    public Button newgameButton;
+    public Button contienuButton;
+    public Button newGameButton;
     public Button optionButton;
 
     public bool canContinue = false;
@@ -14,52 +13,32 @@ public class StartWindow : GenericWindow
     {
         base.Awake();
 
-        continueButton.onClick.AddListener(OnClickcontinue);
-        newgameButton.onClick.AddListener(OnClicknewgame);
-        optionButton.onClick.AddListener(OnClickoption);
+        contienuButton.onClick.AddListener(OnClickContinue);
+        newGameButton.onClick.AddListener(OnClickNewGame);
+        //newGameButton.onClick.AddListener(() => Debug.Log("New Game"));
+        optionButton.onClick.AddListener(OnClickOption);
     }
 
     public override void Open()
     {
-        continueButton.gameObject.SetActive(canContinue);
-        firstSeleted = canContinue ? 
-        continueButton.gameObject : newgameButton.gameObject;
+        contienuButton.gameObject.SetActive(canContinue);
+        firstSeleted = canContinue ? contienuButton.gameObject : newGameButton.gameObject;
+
         base.Open();
     }
 
-    public void OnClickcontinue()
+    public void OnClickContinue()
     {
         manager.Open(Windows.GameOver);
     }
-    public void OnClicknewgame()
+
+    public void OnClickNewGame()
     {
         manager.Open(Windows.Keyboard);
     }
-    public void OnClickoption()
+
+    public void OnClickOption()
     {
-        manager.Open(Windows.Difficulty);  
+        Debug.Log("OnClickOption");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
