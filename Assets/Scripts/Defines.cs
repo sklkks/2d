@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public enum Languages
 {
     Korean,
@@ -14,9 +16,30 @@ public static class DataTableIds
         "StringTableJp",
     };
 
-    public static string String => StringTableIds[(int)Variables.languages];
+    public static string String => StringTableIds[(int)Variables.Language];
+    public static readonly string Item = "ItemTable";
+    public static readonly string Charac = "CharacterTable";
+    
 }
 public static class Variables
 {
-    public static Languages languages;
+    public static event System.Action OnLanuageChanged;
+
+    private static Languages language = Languages.English;
+
+    public static Languages Language
+    {
+        get => language;
+        set
+        {
+            if(language == value)
+            {
+                return;
+            }
+            language = value;
+
+            DataTableManager.ChangedLanguage(language);
+            OnLanuageChanged?.Invoke();
+        }
+    }
 }
